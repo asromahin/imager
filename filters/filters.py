@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 
-def unsharp_filter(im, kernel_size=(3,3)):
+def unsharp_filter(im, kernel_size=[3,3]):
     kernel = np.ones(kernel_size)*(-1)
     print(kernel_size)
     print(kernel_size[0]//2, kernel_size[1]//2)
