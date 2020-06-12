@@ -100,7 +100,7 @@ def get_features(im, resize_shape=None, preproc=False):
     else:
         rescale_factor = (1, 1)
     if preproc:
-        im = unsharp_filter(im)
+        im = unsharp_filter(im, ksize=(3, 3))
     sift = cv2.xfeatures2d.SIFT_create()
     kp = sift.detect(im, None)
 
