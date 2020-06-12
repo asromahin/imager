@@ -1,11 +1,13 @@
 import os
 import sys
-sys.path.insert(0, "../")
+
+sys.path.insert(0, os.path.abspath("./"))
 
 import cv2
 import numpy as np
 from skimage.util import view_as_windows
 
+print(sys.path)
 from augmentations.transforms import rotate, resize
 
 
