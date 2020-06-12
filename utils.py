@@ -117,6 +117,7 @@ def draw_points(im, points, psize=3, color=(255, 0, 0)):
 
 
 def get_bbox_by_features(points, count_of_bbox, shape):
+    points = points.astype('int')
     kmean_res = KMeans(count_of_bbox).fit_predict(points)
 
     res_bboxes = np.zeros((count_of_bbox, 4))
