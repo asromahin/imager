@@ -124,9 +124,9 @@ def get_bbox_by_features(points, count_of_bbox, shape):
     for i in range(count_of_bbox):
         mask = np.zeros(shape[:2], dtype='uint8')
         cur_points = points[kmean_res == i]
-        print(cur_points)
-        print(cur_points.shape)
-        mask = cv2.fillPoly(mask, [cur_points], -1)
+        #print(cur_points)
+        #print(cur_points.shape)
+        mask = cv2.fillPoly(mask, [cur_points], -1, color=255)
         bbox = get_boxes(mask, type='bbox')
         res_bboxes[i] = bbox
     return res_bboxes
