@@ -4,6 +4,7 @@ import sys
 import cv2
 import numpy as np
 from skimage.util import view_as_windows
+from sklearn.cluster import KMeans
 
 from augmentations.transforms import rotate, resize
 
@@ -110,10 +111,30 @@ def get_features(im, resize_shape=None):
 
 def draw_points(im, points, psize=3, color=(255, 0, 0)):
     im = im.copy()
-    #print(len(points))
     for p in points:
-        im[int(p[1])-psize:int(p[1])+psize, int(p[0])-psize:int(p[0])+psize] = color
+        im[int(p[1])-psize:int(p[1])+psize:, int(p[0])-psize:int(p[0])+psize] = color
     return im
+
+
+def get_bbox_by_features(points, count_of_bbox, shape):
+    kmean_res = KMeans(len(count_of_bbox)).fit_predict(points)
+
+    res_bboxes = np.zeros(count_of_bbox, 4)
+    for i in range(count_of_bbox):
+        mask = np.zeros(shape[:2])
+        cur_points = points[kmean_res == i]
+        mask = cv2.fillPoly(mask, cur_points, -1)
+        bbox = get_boxes(mask, type='bbox')
+        res_bboxes[i] = bbox
+    return res_bboxes
+
+
+
+
+
+
+
+
 
 
 
