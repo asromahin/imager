@@ -1,3 +1,4 @@
+import os
 import sys
 sys.path.insert(0, "../")
 
@@ -5,7 +6,7 @@ import cv2
 import numpy as np
 from skimage.util import view_as_windows
 
-from imager.augmentations.transforms import rotate, resize
+from augmentations.transforms import rotate, resize
 
 
 def get_boxes(mask, type='bbox'):

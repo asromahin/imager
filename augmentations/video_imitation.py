@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
 
-from imager.augmentations.transforms import resize
+from augmentations.transforms import resize, rotate
 
-from imager.utils import crop_from_bbox
+from utils import crop_from_bbox
 
 class VideoImitator():
     def __init__(self, image, shape=None, count_frames = 100):
