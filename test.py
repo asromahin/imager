@@ -15,7 +15,7 @@ if __name__ == "__main__":
     st = time.time()
     #im = utils.resize(im, (512, 512))
     #pts = utils.get_features(im, (512, 512))
-    res = filters.unsharp_filter(im)
+    res = utils.get_features(im, resize_shape=(512, 512), preproc=True)
     print(time.time() - st)
     print(len(res))
     cv2.imwrite('D://temp/SUPERTEST.png', res)
