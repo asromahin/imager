@@ -12,3 +12,9 @@ def rotate(image, image_center=None, angle=90):
 
 def resize(image, shape):
     return cv2.resize(image, (shape[1], shape[0]))
+
+def normalize(image):
+    min_val = np.min(image)
+    image -= min_val
+    max_val = np.max(image)
+    return image/max_val
