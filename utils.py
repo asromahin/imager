@@ -122,7 +122,7 @@ def get_bbox_by_features(points, count_of_bbox, shape):
 
     res_bboxes = np.zeros((count_of_bbox, 4))
     for i in range(count_of_bbox):
-        mask = np.zeros(shape[:2])
+        mask = np.zeros(shape[:2], dtype='uint8')
         cur_points = points[kmean_res == i]
         print(cur_points)
         print(cur_points.shape)
