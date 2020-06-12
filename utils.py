@@ -7,6 +7,7 @@ from skimage.util import view_as_windows
 from sklearn.cluster import KMeans
 
 from augmentations.transforms import rotate, resize
+from filters.filters import unsharp_filter
 
 
 def get_boxes(mask, type='bbox'):
@@ -91,14 +92,15 @@ def create_tiles(im, tile_size):
             res[:, :, :, channel] = buf
         return res
 
-def get_features(im, resize_shape=None):
+def get_features(im, resize_shape=None, preproc=False):
     if resize_shape is not None:
         original_shape = im.shape
         rescale_factor = np.array(original_shape[:2])/np.array(resize_shape[:2])
         im = resize(im, resize_shape)
     else:
         rescale_factor = (1, 1)
-
+    if preproc:
+        im = unsharp_filter(im)
     sift = cv2.xfeatures2d.SIFT_create()
     kp = sift.detect(im, None)
 
