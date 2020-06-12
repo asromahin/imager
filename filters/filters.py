@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 
 def unsharp_filter(im, ksize=(3,3)):
+    print(type(ksize))
+    print(dir(ksize))
     kernel = np.ones(ksize)*(-1)
     print(ksize)
     print(ksize[0]//2, ksize[1]//2)
