@@ -84,7 +84,7 @@ def get_auto_thresh(im, thresh_par=29, thresh_offset=15):
     T = threshold_local(V, thresh_par, offset=thresh_offset, method="gaussian")
     thresh = (V > T).astype("uint8") * 255
     thresh = cv2.bitwise_not(thresh)
-    contours = cv2.findContours(thresh, 1, 2)[1]
+    contours,_ = cv2.findContours(thresh, 1, 2)
     thresh = cv2.drawContours(np.zeros(thresh.shape, dtype='uint8'), contours, -1, 255, 3)
     return thresh
 
@@ -138,8 +138,9 @@ def draw_points(im, points, psize=3, color=(255, 0, 0)):
 
 
 def get_bbox_by_features(points, count_of_bbox, shape):
-    points = points.astype('int')
+    points = np.array(points).astype('int')
     kmean_res = KMeans(count_of_bbox).fit_predict(points)
+    #print(kmean_res)
 
     res_bboxes = np.zeros((count_of_bbox, 4))
     for i in range(count_of_bbox):
@@ -200,9 +201,10 @@ def get_include_contours(contours, point,sorted=False):
             if result == 1:
                 res_contours.append(cnt)
                 res_area.append(cv2.contourArea(cnt))
-    res = np.array(res_area, res_contours)
+    res = np.array([res_area, res_contours])
     if sorted:
-        res = np.sort(res, axis=0)
+        #res = np.sort(res, axis=0)
+        res[1] = res[1][res[0].argsort()]
     return res[1]
 
 def find_more_contours(mask, min_iter=1, max_iter=20, return_mask=False):
